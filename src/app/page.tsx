@@ -7,7 +7,7 @@ import { inputfields } from "@/data";
 export default function Home() {
 	return (
 		<div>
-			<div className="container w-3/4 mx-auto">
+			<div className="container lg:w-[80%] sm:w-[90%] mx-auto">
 				<Nav />
 				<Hero />
 				<div className="imageadd mt-10">
