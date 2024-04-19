@@ -4,26 +4,15 @@ import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import React from "react";
 import Image from "next/image";
-import { inputfields } from "@/data";
-import { navStoreModel } from "@/store";
+
 import Newsletter from "@/components/Newsletter";
 
 export default function Home() {
-	const isNavOpen = navStoreModel((state) => state.isNavOpen);
 	return (
 		<div>
 			<div className="w-[90%] mx-auto">
 				<Nav />
-				<div
-					className={`navLinks ${
-						isNavOpen ? "h-[max-content]" : "h-[0] "
-					}  overflow-hidden transition ease-in-out delay-5000 w-full flex flex-col items-end justify-center`}
-				>
-					<p className="link hover:cursor-pointer text-small mb-3">
-						Create project
-					</p>
-					<p className="link hover:cursor-pointer text-small">All projects</p>
-				</div>
+
 				<Hero isHome={true} />
 			</div>
 

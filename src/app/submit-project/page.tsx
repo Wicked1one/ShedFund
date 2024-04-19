@@ -3,40 +3,40 @@
 import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import Image from "next/image";
-import { navStoreModel } from "@/store";
 import React from "react";
 import { inputfields } from "@/data";
 import Newsletter from "@/components/Newsletter";
 
-export default function Home() {
-	const isNavOpen = navStoreModel((state) => state.isNavOpen);
+export default function Submit() {
 	return (
 		<div>
 			<div className="w-[90%] mx-auto">
 				<Nav />
-				<div
-					className={`navLinks ${
-						isNavOpen ? "h-[max-content]" : "h-[0] "
-					}  overflow-hidden transition ease-in-out delay-5000 w-full flex flex-col items-end justify-center`}
-				>
-					<p className="link hover:cursor-pointer text-small mb-3">
-						Create project
-					</p>
-					<p className="link hover:cursor-pointer text-small">All projects</p>
-				</div>
 				<Hero />
 				<div className="imageadd mt-10">
 					<div className="header flex gap-x-2">
 						<Image src="/assets/attach.svg" height={20} width={20} alt="" />
 						<p className="text-sm">Upload image file</p>
 					</div>
-					<Image
-						className="mt-2"
-						src="/assets/image.svg"
-						height={25}
-						width={25}
-						alt=""
-					/>
+					<label
+						className="hover:cursor-pointer w-[max-content] bg-black"
+						htmlFor="picker"
+					>
+						<Image
+							className="mt-2 "
+							src="/assets/image.svg"
+							height={25}
+							width={25}
+							alt=""
+						/>
+						<input
+							type="file"
+							id="picker"
+							className="hidden"
+							name="picker"
+							accept="image/*"
+						/>
+					</label>
 				</div>
 				<div className="inputfield mt-10">
 					{inputfields.map((field) => {
