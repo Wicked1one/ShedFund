@@ -11,6 +11,7 @@ const config: Config = {
 			fontSize: {
 				smaller: "12px",
 				small: "13px",
+				title: "20px",
 			},
 			height: {
 				"70vh": "70vh", // Add custom height value
