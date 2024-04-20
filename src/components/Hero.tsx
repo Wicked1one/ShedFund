@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 interface props {
 	isHome?: boolean;
@@ -8,22 +7,22 @@ interface props {
 export default function Hero({ isHome }: props) {
 	return (
 		<div
-			className={`w-full h-70vh mx-auto mt-5 rounded hero ${
+			className={`w-full md:h-70vh h-[50vh] mx-auto mt-5 rounded hero ${
 				!isHome ? "bg-[url('/assets/hero.svg')]" : "bg-[#F4EFE9]"
 			} bg-no-repeat bg-cover`}
 		>
 			{isHome ? (
-				<div className="flex items-center h-full px-5">
-					<div className="header w-[70%] mr-10">
-						<p className="hTitle text-3xl mb-2 text-gray-500 font-bold">
-							"Empower Dreams, Fund Change: Where Every Contribution Writes a
-							Story of Impact!"
+				<div className="flex flex-col md:flex-row items-center h-full px-5">
+					<div className="header md:w-[70%] w-full mr-10">
+						<p className="hTitle md:text-3xl text-title md:text-start text-center mb-2 text-gray-500 font-bold">
+							Empower Dreams, Fund Change: Where Every Contribution Writes a
+							Story of Impact!
 						</p>
-						<p className="hsubTitle text-gray-500 text-small">
-							"Transforming Ideas into Reality, One Donation at a Time!"
+						<p className="hsubTitle md:text-start text-center text-gray-500 text-small">
+							Transforming Ideas into Reality, One Donation at a Time!
 						</p>
 					</div>
-					<div className="h-[90%] flex">
+					<div className="md:h-[90%] h-[50%] flex">
 						<img
 							className="object-cover"
 							src="/assets/runningkids.jpeg"

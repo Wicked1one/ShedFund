@@ -14,11 +14,13 @@ export default function Nav() {
 		<div>
 			<div className={`nav flex justify-between py-5 `}>
 				<div className="log flex items-center">
-					<p className="title font-bold">ShedFunding</p>
+					<p className="title font-bold md:text-[15px] text-small">
+						ShedFunding
+					</p>
 					<Image src="/assets/logo.svg" alt="" width={25} height={25} />
 				</div>
 				<div className="log flex items center  gap-x-5">
-					<Image src="/assets/wallet.svg" alt="" width={25} height={25} />
+					<Image src="/assets/wallet.svg" alt="" width={20} height={20} />
 					<Image
 						onClick={() =>
 							navStoreModel.setState({
@@ -27,8 +29,8 @@ export default function Nav() {
 						}
 						src="/assets/menu.svg"
 						alt=""
-						width={25}
-						height={25}
+						width={20}
+						height={20}
 					/>
 				</div>
 			</div>
@@ -42,7 +44,7 @@ export default function Nav() {
 						Create project
 					</p>
 				</Link>
-				<Link href="">
+				<Link href="projects">
 					<p className="link hover:cursor-pointer text-small">All projects</p>
 				</Link>
 			</div>

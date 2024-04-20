@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Newsletter() {
 	return (
 		<div className="bottom flex flex-col items-center justify-center mt-20 h-80vh bg-[url('/assets/wave.svg')] bg-no-repeat bg-cover w-full">
-			<p className="font-bold text-3xl mb-2 mt-10">
+			<p className="font-bold md:text-3xl text-title mb-2 mt-10">
 				Subscribe to our newsletter
 			</p>
 			<p className="text-small mb-4">
