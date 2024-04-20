@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Api } from "@/api/api";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Nav from "@/components/Nav";
-import Image from "next/image";
+
+import { IoCopyOutline } from "react-icons/io5";
 
 export default function Projecct() {
 	const params = useParams();
@@ -64,6 +65,7 @@ export default function Projecct() {
 	}
 	return (
 		<div className="w-[95%] mx-auto">
+			<ToastContainer />
 			<Nav />
 			<div className="project flex md:flex-row flex-col">
 				<div className="md:w-[60%] w-full md:h-[90vh] h-[50vh] flex mr-5">
@@ -74,9 +76,20 @@ export default function Projecct() {
 						{data.title}
 					</p>
 					<div className="flex mt-5 justify-between md:flex-row flex-col md:items-center items-start ">
-						<p className="address text-small font-medium md:mb-0 mb-2">
-							XRP address: <span className="text-gray-400">{data.address}</span>
-						</p>
+						<div className="flex gap-x-5">
+							<p className="address text-small font-medium md:mb-0 mb-2">
+								XRP address:{" "}
+								<span className="text-gray-400">{data.address} </span>
+							</p>
+							<span>
+								<IoCopyOutline
+									onClick={() => {
+										navigator.clipboard.writeText(data.address);
+										toast.success("address copied to clipboard");
+									}}
+								/>
+							</span>
+						</div>
 						{calculatePercent(1000, Number.parseInt(data.amount))}
 					</div>
 					<p className="mt-5 text-small">{data.desc}</p>
