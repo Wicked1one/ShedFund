@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export class Api {
 	static baseUrl = "https://shed-funding-server.onrender.com";
@@ -10,5 +11,35 @@ export class Api {
 		} catch (e) {
 			return e;
 		}
+	}
+	static async handlePost(path: string, payload: {}) {
+		console.log(path);
+		try {
+			const response = await axios.post(this.baseUrl + path, payload, {
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			});
+			console.log(response);
+			return response.data;
+		} catch (e) {
+			console.log(e);
+			return e;
+		}
+	}
+
+	static handleFieldCheck(obj: {}) {
+		// Iterate over the values of the object
+		for (const field of Object.values(obj)) {
+			// Check if the field is falsy (empty, null, undefined, etc.)
+			if (!field) {
+				// If any field is empty, return false immediately
+				toast.error("Some required fields are empty");
+				return false;
+			}
+		}
+		// If all fields are filled, return true
+
+		return true;
 	}
 }

@@ -14,9 +14,11 @@ export default function Nav() {
 		<div>
 			<div className={`nav flex justify-between py-5 `}>
 				<div className="log flex items-center">
-					<p className="title font-bold md:text-[15px] text-small">
-						ShedFunding
-					</p>
+					<Link href={"/"}>
+						<p className="title font-bold md:text-[15px] text-small">
+							ShedFunding
+						</p>
+					</Link>
 					<Image src="/assets/logo.svg" alt="" width={25} height={25} />
 				</div>
 				<div className="log flex items center  gap-x-5">

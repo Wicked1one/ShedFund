@@ -3,13 +3,77 @@
 import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { inputfields } from "@/data";
 import Newsletter from "@/components/Newsletter";
+import { Api } from "@/api/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Submit() {
+	const [project, setProject] = useState({
+		title: "",
+		image: "",
+		desc: "",
+		address: "",
+		amount: "",
+	});
+
+	const [imgUrl, setImgUrl] = useState("");
+	const [isLoading, setIsloading] = useState(false);
+
+	function handleChange(e: any) {
+		const { name, value } = e.target;
+		if (name === "image") {
+			if (e.target.files.length > 0) {
+				setImgUrl(URL.createObjectURL(e.target.files[0]));
+			}
+			setProject({
+				...project,
+				image: e.target.files[0],
+			});
+		} else {
+			setProject({
+				...project,
+				[name]: value,
+			});
+		}
+	}
+
+	async function submitProject() {
+		if (navigator.onLine) {
+			if (Api.handleFieldCheck(project) == false) {
+				return;
+			}
+
+			setIsloading(true);
+			await Api.handlePost("/register-project", project)
+				.then((response) => {
+					setIsloading(false);
+					toast.success(
+						`Successfully added ${response.data.title} as a new project`
+					);
+					setProject({
+						title: "",
+						image: "",
+						desc: "",
+						address: "",
+						amount: "",
+					});
+					setImgUrl("");
+				})
+				.catch((err) => {
+					setIsloading(false);
+					console.log(err);
+					toast.error(err);
+				});
+		} else {
+			toast.error("You are not connected to the internet");
+		}
+	}
 	return (
 		<div>
+			<ToastContainer />
 			<div className="w-[90%] mx-auto">
 				<Nav />
 				<Hero />
@@ -22,19 +86,30 @@ export default function Submit() {
 						className="hover:cursor-pointer w-[max-content] bg-black"
 						htmlFor="picker"
 					>
-						<Image
-							className="mt-2 "
-							src="/assets/image.svg"
-							height={25}
-							width={25}
-							alt=""
-						/>
+						{imgUrl ? (
+							<Image
+								className="mt-2 "
+								src={imgUrl}
+								height={100}
+								width={100}
+								alt=""
+							/>
+						) : (
+							<Image
+								className="mt-2 "
+								src="/assets/image.svg"
+								height={25}
+								width={25}
+								alt=""
+							/>
+						)}
 						<input
 							type="file"
 							id="picker"
 							className="hidden"
-							name="picker"
+							name="image"
 							accept="image/*"
+							onChange={handleChange}
 						/>
 					</label>
 				</div>
@@ -48,9 +123,10 @@ export default function Submit() {
 								<textarea
 									className=" border w-full px-5 rounded placeholder:text-smaller"
 									placeholder={field.placeholder}
-									name=""
+									name={field.name}
 									id=""
 									cols={30}
+									onChange={handleChange}
 									rows={10}
 								></textarea>
 							</div>
@@ -62,13 +138,20 @@ export default function Submit() {
 								<input
 									className="border w-full p-2 rounded placeholder:text-smaller"
 									placeholder={field.placeholder}
+									name={field.name}
+									onChange={handleChange}
 								/>
 							</div>
 						);
 					})}
 				</div>
-				<button className="py-3 flex mt-20 gap-2 bg-black items-center rounded justify-center w-full">
-					<p className="text-white">Create</p>{" "}
+				<button
+					onClick={submitProject}
+					className="py-3 flex mt-20 gap-2 bg-black items-center rounded justify-center w-full"
+				>
+					<p className="text-white">
+						{isLoading ? "Submitting project" : "Create"}
+					</p>{" "}
 					<Image src="/assets/btnImage.svg" alt="" width={25} height={25} />
 				</button>
 			</div>

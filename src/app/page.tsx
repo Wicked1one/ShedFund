@@ -57,35 +57,43 @@ export default function Home() {
 
 			{!isLoading && (
 				<Link href="/projects">
-					<p className="seeMore text-end text-[10px] text-amber-600 pr-5 hover:cursor-pointer  mt-10 mb-2">
+					<p className="seeMore w-[95%] mx-auto text-end text-[10px] text-amber-600 pr-5 hover:cursor-pointer  mt-10 mb-5">
 						{" "}
 						See more
 					</p>
 				</Link>
 			)}
-			<div className="flex md:flex-row flex-col gap-5  px-3 flex-flow">
-				{data.map((data, i) =>
-					isLoading ? (
-						<div key={i} className="h-[500px] bg-black w-[300px]"></div>
-					) : i <= 7 ? (
-						<Link className="md:w-[24%] w-full h-[300px]" href="">
-							<div
-								key={i + data["title"]}
-								className=" bg-slate-50 hover:cursor-pointer rounded	"
-							>
-								<img src={data["image"]} alt={""} />
-								<div className="details mt-1 px-1">
-									<p className="title text-title text-gray-500 font-medium">
-										{data["title"]}
-									</p>
-									<p className="address font-light text-small">
-										{data["address"]}
-									</p>
+			<div className="flex md:flex-row flex-col gap-5 justify-center  px-3 flex-wrap">
+				{isLoading ? (
+					<div className="h-[500px] bg-black w-[300px]">Loading</div>
+				) : data.length < 1 ? (
+					<div></div>
+				) : (
+					data.map((data, i) =>
+						i <= 7 ? (
+							<Link className="md:w-[30%] w-full h-[300px]" href="">
+								<div
+									key={i + data["title"]}
+									className=" bg-slate-50 hover:cursor-pointer rounded flex flex-col	"
+								>
+									<img
+										className="h-[200px] w-full object-cover object-top"
+										src={data["image"]}
+										alt={""}
+									/>
+									<div className="details mt-1 px-1">
+										<p className="title text-title text-gray-500 font-medium">
+											{data["title"]}
+										</p>
+										<p className="address font-light text-small">
+											{data["address"]}
+										</p>
+									</div>
 								</div>
-							</div>
-						</Link>
-					) : (
-						<div></div>
+							</Link>
+						) : (
+							<div></div>
+						)
 					)
 				)}
 			</div>
