@@ -2,7 +2,7 @@
 
 import { Api } from "@/api/api";
 import Nav from "@/components/Nav";
-import Spinner from "@/components/Spinner/Spinner";
+
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";

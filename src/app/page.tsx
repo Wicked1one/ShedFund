@@ -10,7 +10,6 @@ import Newsletter from "@/components/Newsletter";
 import { Api } from "@/api/api";
 import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
-import Spinner from "@/components/Spinner/Spinner";
 
 export default function Home() {
 	const [data, setData] = useState([]);
