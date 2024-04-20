@@ -77,7 +77,7 @@ export default function Home() {
 							<Link
 								key={i + data["title"]}
 								className="md:w-[30%] w-full h-[300px]"
-								href=""
+								href={`/projects/${data["_id"]}`}
 							>
 								<div className=" bg-slate-50 hover:cursor-pointer rounded flex flex-col	">
 									<img
