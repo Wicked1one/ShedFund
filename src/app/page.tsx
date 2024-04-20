@@ -71,11 +71,12 @@ export default function Home() {
 				) : (
 					data.map((data, i) =>
 						i <= 7 ? (
-							<Link className="md:w-[30%] w-full h-[300px]" href="">
-								<div
-									key={i + data["title"]}
-									className=" bg-slate-50 hover:cursor-pointer rounded flex flex-col	"
-								>
+							<Link
+								key={i + data["title"]}
+								className="md:w-[30%] w-full h-[300px]"
+								href=""
+							>
+								<div className=" bg-slate-50 hover:cursor-pointer rounded flex flex-col	">
 									<img
 										className="h-[200px] w-full object-cover object-top"
 										src={data["image"]}
@@ -92,7 +93,7 @@ export default function Home() {
 								</div>
 							</Link>
 						) : (
-							<div></div>
+							<div key={i}></div>
 						)
 					)
 				)}
