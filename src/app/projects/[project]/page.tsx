@@ -11,8 +11,15 @@ import Image from "next/image";
 export default function Projecct() {
 	const params = useParams();
 
-	const [data, setData] = useState({});
+	interface dataProps {
+		title: string;
+		image: string;
+		desc: string;
+		address: string;
+	}
+	const [data, setData] = useState();
 	const [isLoading, setIsLoading] = useState(false);
+
 	useEffect(() => {
 		console.log(params);
 		if (navigator.onLine) {
@@ -61,19 +68,24 @@ export default function Projecct() {
 			<Nav />
 			<div className="project flex md:flex-row flex-col">
 				<div className="md:w-[60%] w-full md:h-[90vh] h-[50vh] flex mr-5">
-					<img className="object-cover object-top" src={data.image} alt="" />
+					<img
+						className="object-cover object-top"
+						src={data!["image"]}
+						alt=""
+					/>
 				</div>
 				<div className="desc md:w-[40%] w-full flex flex-col pb-5 ">
 					<p className="tit mt-10 text-3xl text-gray-400 font-medium">
-						{data.title}
+						{data!["title"]}
 					</p>
 					<div className="flex mt-5 justify-between md:flex-row flex-col md:items-center items-start ">
 						<p className="address text-small font-medium md:mb-0 mb-2">
-							XRP address: <span className="text-gray-400">{data.address}</span>
+							XRP address:{" "}
+							<span className="text-gray-400">{data!["address"]}</span>
 						</p>
-						{calculatePercent(1000, Number.parseInt(data.amount))}
+						{calculatePercent(1000, Number.parseInt(data!["amount"]))}
 					</div>
-					<p className="mt-5 text-small">{data.desc}</p>
+					<p className="mt-5 text-small">{data!["desc"]}</p>
 
 					<button className="alig py-2 mt-20 align-self-end bg-amber-500 rounded text-white">
 						Fund
