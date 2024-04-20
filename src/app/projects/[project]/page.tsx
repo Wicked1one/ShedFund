@@ -51,7 +51,7 @@ export default function Projecct() {
 							style={{
 								width: `${percentage}%`,
 							}}
-							className={`inner rounded h-[10px] bg-amber-500`}
+							className={`inner rounded h-[10px] bg-amber-500 rounded`}
 						></div>
 					</div>
 					<div className="flex justify-between">
