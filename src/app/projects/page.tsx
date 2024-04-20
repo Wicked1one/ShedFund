@@ -47,7 +47,7 @@ export default function Projects() {
 					<div></div>
 				) : (
 					data.map((data, i) => (
-						<Link key={i + data["title"]} href="">
+						<Link key={i + data["title"]} href={`/projects/${data["_id"]}`}>
 							<div className=" bg-gray-200 md:h-[300px] h-[250px] md:mb-10 mb-5 flex hover:cursor-pointer rounded w-full	">
 								<img
 									className="w-[40%] object-fit-cover"
