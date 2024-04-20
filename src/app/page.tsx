@@ -10,6 +10,7 @@ import Newsletter from "@/components/Newsletter";
 import { Api } from "@/api/api";
 import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
+import Spinner from "@/components/Spinner";
 
 export default function Home() {
 	const [data, setData] = useState([]);
@@ -65,7 +66,9 @@ export default function Home() {
 			)}
 			<div className="flex md:flex-row flex-col gap-5 justify-center  px-3 flex-wrap">
 				{isLoading ? (
-					<div className="h-[500px] bg-black w-[300px]">Loading</div>
+					<div className="h-[500px] mt-10 flex items-center justify-center w-full">
+						<Spinner isloading={isLoading}></Spinner>
+					</div>
 				) : data.length < 1 ? (
 					<div></div>
 				) : (

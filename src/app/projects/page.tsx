@@ -2,6 +2,7 @@
 
 import { Api } from "@/api/api";
 import Nav from "@/components/Nav";
+import Spinner from "@/components/Spinner";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -38,12 +39,14 @@ export default function Projects() {
 			<p className="all text-[10px] text-gray-400 mt-10 mb-5">all projects</p>
 
 			<div className=" flex flex-col">
-				{data.map((data, i) =>
-					isLoading ? (
-						<div key={i} className="h-[100px] w-[100px]">
-							<p>Loading</p>
-						</div>
-					) : (
+				{isLoading ? (
+					<div className="h-[500px] flex items-center justify-center w-full">
+						<Spinner isloading={isLoading}></Spinner>
+					</div>
+				) : data.length < 1 ? (
+					<div></div>
+				) : (
+					data.map((data, i) => (
 						<Link key={i + data["title"]} href="">
 							<div className=" bg-gray-200 md:h-[300px] h-[250px] md:mb-10 mb-5 flex hover:cursor-pointer rounded w-full	">
 								<img
@@ -61,7 +64,7 @@ export default function Projects() {
 								</div>
 							</div>
 						</Link>
-					)
+					))
 				)}
 			</div>
 			<div className="footer mt-20 flex flex-col items-center justify-center">
