@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Nav from "@/components/Nav";
 
 import { IoCopyOutline } from "react-icons/io5";
+import Spinner from "@/components/Spinner";
 
 export default function Projecct() {
 	const params = useParams();
@@ -67,38 +68,44 @@ export default function Projecct() {
 		<div className="w-[95%] mx-auto">
 			<ToastContainer />
 			<Nav />
-			<div className="project flex md:flex-row flex-col">
-				<div className="md:w-[60%] w-full md:h-[90vh] h-[50vh] flex mr-5">
-					<img className="object-cover object-top" src={data.image} alt="" />
+			{isLoading ? (
+				<div className="h-[500px] flex items-center justify-center w-full">
+					<Spinner isloading={isLoading}></Spinner>
 				</div>
-				<div className="desc md:w-[40%] w-full flex flex-col pb-5 ">
-					<p className="tit mt-10 text-3xl text-gray-400 font-medium">
-						{data.title}
-					</p>
-					<div className="flex mt-5 justify-between md:flex-row flex-col md:items-center items-start ">
-						<div className="flex gap-x-5">
-							<p className="address text-small font-medium md:mb-0 mb-2">
-								XRP address:{" "}
-								<span className="text-gray-400">{data.address} </span>
-							</p>
-							<span>
-								<IoCopyOutline
-									onClick={() => {
-										navigator.clipboard.writeText(data.address);
-										toast.success("address copied to clipboard");
-									}}
-								/>
-							</span>
-						</div>
-						{calculatePercent(1000, Number.parseInt(data.amount))}
+			) : (
+				<div className="project flex md:flex-row flex-col">
+					<div className="md:w-[60%] w-full md:h-[90vh] h-[50vh] flex mr-5">
+						<img className="object-cover object-top" src={data.image} alt="" />
 					</div>
-					<p className="mt-5 text-small">{data.desc}</p>
+					<div className="desc md:w-[40%] w-full flex flex-col pb-5 ">
+						<p className="tit mt-10 text-3xl text-gray-400 font-medium">
+							{data.title}
+						</p>
+						<div className="flex mt-5 justify-between md:flex-row flex-col md:items-center items-start ">
+							<div className="flex gap-x-5">
+								<p className="address text-small font-medium md:mb-0 mb-2">
+									XRP address:{" "}
+									<span className="text-gray-400">{data.address} </span>
+								</p>
+								<span>
+									<IoCopyOutline
+										onClick={() => {
+											navigator.clipboard.writeText(data.address);
+											toast.success("address copied to clipboard");
+										}}
+									/>
+								</span>
+							</div>
+							{calculatePercent(1000, Number.parseInt(data.amount))}
+						</div>
+						<p className="mt-5 text-small">{data.desc}</p>
 
-					<button className="alig py-2 mt-20 align-self-end bg-amber-500 rounded text-white">
-						Fund
-					</button>
+						<button className="alig py-2 mt-20 align-self-end bg-amber-500 rounded text-white">
+							Fund
+						</button>
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 }
