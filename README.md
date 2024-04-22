@@ -16,6 +16,12 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+[![trophy](https://github-profile-trophy.vercel.app/?username=Remy-Arinze)](https://github.com/ryo-ma/github-profile-trophy)
+
+[![Ashutosh's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=Remy-Arinze)](https://github.com/ashutosh00710/github-readme-activity-graph)
+
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=Remy-Arinze)](https://github.com/anuraghazra/github-readme-stats)
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
