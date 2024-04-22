@@ -22,6 +22,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=Remy-Arinze)](https://github.com/anuraghazra/github-readme-stats)
 
+[![GitHub Streak](https://streak-stats.demolab.com?user=Remy-Arinze)](https://git.io/streak-stats)
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
