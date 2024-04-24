@@ -1,15 +1,39 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { navStoreModel } from "@/store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { Xumm } from "xumm";
+
 export default function Nav() {
+	var xumm = new Xumm("ca9819b9-4b01-41ba-9716-ad7844d1b0e1");
+	const [connectedAccount, setConnectedAccount] = useState("");
 	const pathname = usePathname();
 	useEffect(() => {
 		navStoreModel.setState({ isNavOpen: false });
-	}, []);
+	}, [pathname]);
+
 	const isNavOpen = navStoreModel((state) => state.isNavOpen);
+
+	async function connectWallet() {
+		console.log("Running connecgt wallet");
+		xumm.on("ready", () =>
+			console.log("Ready (e.g. hide loading state of page)")
+		);
+
+		xumm.on("success", async () => {
+			xumm.user.account.then((account) => {
+				setConnectedAccount(account!);
+			});
+		});
+
+		xumm.on("logout", async () => {
+			setConnectedAccount("");
+		});
+	}
+
 	return (
 		<div>
 			<div className={`nav flex justify-between py-5 `}>
@@ -22,7 +46,25 @@ export default function Nav() {
 					<Image src="/assets/logo.svg" alt="" width={25} height={25} />
 				</div>
 				<div className="log flex items center  gap-x-5">
-					<Image src="/assets/wallet.svg" alt="" width={20} height={20} />
+					{connectedAccount ? (
+						<div
+							onClick={() => {
+								xumm.logout();
+							}}
+						>
+							<p>{connectedAccount}</p>
+						</div>
+					) : (
+						<Image
+							onClick={() => {
+								xumm.authorize();
+							}}
+							src="/assets/wallet.svg"
+							alt=""
+							width={20}
+							height={20}
+						/>
+					)}
 					<Image
 						onClick={() =>
 							navStoreModel.setState({
