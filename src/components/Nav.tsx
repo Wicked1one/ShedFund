@@ -1,21 +1,22 @@
 "use client";
+import "dotenv/config.js";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { navStoreModel } from "@/store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Xumm } from "xumm";
-import "dotenv/config";
 
 export default function Nav() {
 	var xumm = new Xumm(
 		"ca9819b9-4b01-41ba-9716-ad7844d1b0e1",
-		"d4763fc0-99c0-4a1f-9b07-cb49e9249e62"
+		"fe90fc1b-553a-4769-8979-9b5749803e47"
 	);
 
 	const [connectedAccount, setConnectedAccount] = useState("");
 	const pathname = usePathname();
 	useEffect(() => {
+		console.log(process.env.apiKey);
 		navStoreModel.setState({ isNavOpen: false });
 		connectWallet();
 	}, [pathname]);
@@ -53,11 +54,12 @@ export default function Nav() {
 				<div className="log flex items center  gap-x-5">
 					{connectedAccount ? (
 						<div
+							className="w-[30%] overflow-x-hidden"
 							onClick={() => {
 								xumm.logout();
 							}}
 						>
-							<p>{connectedAccount}</p>
+							<p className="text-[12px] text-gray-400">{connectedAccount}</p>
 						</div>
 					) : (
 						<Image
