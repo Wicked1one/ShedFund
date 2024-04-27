@@ -20,8 +20,8 @@ export default function SelectWallet() {
 		);
 
 		xumm.on("success", async () => {
-			xumm.user.token.then((account) => {
-				walletAddress.setState({ walletAddress: account! });
+			xumm.user.account.then((account) => {
+				walletAddress.setState({ walletAddress: account });
 				modalState.setState({ isModalOpen: false });
 				Cookies.set("walletAddress", account!);
 			});
@@ -76,7 +76,7 @@ export default function SelectWallet() {
 					<div
 						key={index + Math.random()}
 						onClick={() => {
-							wallet.onclick();
+							!wallet.disabled && wallet.onclick();
 						}}
 						aria-disabled={wallet.disabled}
 						className={`w-full cursor-pointer flex rounded-lg items-center  pl-2 py-2  mb-4 ${
