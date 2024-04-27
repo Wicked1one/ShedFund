@@ -10,11 +10,13 @@ export const navStoreModel = create<navState>((set) => ({
 interface modalState {
 	isModalOpen: boolean;
 	modalType: string;
+	address: string;
 }
 
 export const modalState = create<modalState>((set) => ({
 	isModalOpen: false,
 	modalType: "",
+	address: "",
 }));
 interface walletAddressState {
 	walletAddress: string;

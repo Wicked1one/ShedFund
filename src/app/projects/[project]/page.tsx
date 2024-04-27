@@ -10,6 +10,7 @@ import Nav from "@/components/Nav";
 import { IoCopyOutline } from "react-icons/io5";
 import Spinner from "@/components/Spinner";
 import { modalState } from "@/store";
+import { FaBullseye } from "react-icons/fa6";
 
 export default function Projecct() {
 	const params = useParams();
@@ -21,30 +22,30 @@ export default function Projecct() {
 		address: "",
 		amount: "",
 	});
+	const [balance, setBalance] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [iBalanceLoading, setIsBalanceIsLoading] = useState(false);
 	useEffect(() => {
 		console.log(params);
 		if (navigator.onLine) {
 			setIsLoading(true);
-			init;
+			fetchProject();
 		} else {
 			// Show toast
 			toast.error("You are not connected to the internet");
 		}
 	}, []);
 
-	async function init() {
-		await fetchProject();
-		fetchWalletBalance();
-	}
-
 	function fetchProject() {
 		Api.handleFetch(`/all-projects/${params.project}`)
 			.then((response) => {
 				console.log(response);
 				setIsLoading(false);
+
 				setData(response.data);
+				fetchWalletBalance(response.data.address);
 			})
+
 			.catch((error) => {
 				setIsLoading(false);
 				console.log(error);
@@ -52,14 +53,22 @@ export default function Projecct() {
 			});
 	}
 
-	function fetchWalletBalance() {
-		console.log({ address: data.address });
-		Api.handlePost("/getBalance", { address: data.address })
+	function fetchWalletBalance(address: string) {
+		setIsBalanceIsLoading(true);
+		console.log({ address: address });
+		Api.handlePost(
+			"/getBalance",
+			{ address: address },
+			{ ContentType: "application/x-www-form-urlencoded" }
+		)
 			.then((response) => {
-				console.log(response);
+				console.log({ balance: response.payload });
+
+				setBalance(response.payload.balance[0].value);
+				setIsBalanceIsLoading(false);
 			})
 			.catch((error) => {
-				setIsLoading(false);
+				setIsBalanceIsLoading(false);
 				console.log(error);
 				toast.error("There was an error fetching projects");
 			});
@@ -71,14 +80,20 @@ export default function Projecct() {
 			console.log(percentage);
 			return (
 				<div className=" flex flex-col">
-					<div className="address overflow-x-hidden rounded h-[10px] w-[150px] bg-gray-200">
-						<div
-							style={{
-								width: `${percentage}%`,
-							}}
-							className={`inner rounded h-[10px] bg-amber-500 rounded`}
-						></div>
-					</div>
+					{iBalanceLoading ? (
+						<div className="h-[30px] flex items-center justify-center w-[50%]">
+							<Spinner isloading={isLoading}></Spinner>
+						</div>
+					) : (
+						<div className="address overflow-x-hidden rounded h-[10px] w-[150px] bg-gray-200">
+							<div
+								style={{
+									width: `${percentage}%`,
+								}}
+								className={`inner rounded h-[10px] bg-amber-500 rounded`}
+							></div>
+						</div>
+					)}
 					<div className="flex justify-between">
 						<p className="address  text-small text-gray-400">{part}</p>
 						<p className="address text-small text-gray-400">{whole}</p>
@@ -122,13 +137,19 @@ export default function Projecct() {
 									/>
 								</span>
 							</div>
-							{calculatePercent(1000, Number.parseInt(data.amount))}
+							{calculatePercent(
+								Number.parseInt(balance),
+								Number.parseInt(data.amount)
+							)}
 						</div>
 						<p className="mt-5 text-small">{data.desc}</p>
 
 						<button
 							onClick={() => {
-								modalState.setState({ modalType: "fund" });
+								modalState.setState({
+									modalType: "fund",
+									address: data.address,
+								});
 							}}
 							className="alig py-2 mt-20 align-self-end bg-amber-500 rounded text-white"
 						>

@@ -12,13 +12,11 @@ export class Api {
 			return e;
 		}
 	}
-	static async handlePost(path: string, payload: {}) {
+	static async handlePost(path: string, payload: {}, encoding: {}) {
 		console.log(path);
 		try {
 			const response = await axios.post(this.baseUrl + path, payload, {
-				headers: {
-					"Content-Type": "multipart/form-data",
-				},
+				headers: encoding,
 			});
 			console.log(response);
 			return response.data;

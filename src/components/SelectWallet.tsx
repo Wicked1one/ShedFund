@@ -2,6 +2,7 @@ import { modalState, walletAddress } from "@/store";
 import React, { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import { Xumm } from "xumm";
+import Cookies from "js-cookie";
 
 export default function SelectWallet() {
 	var xumm = new Xumm(
@@ -22,11 +23,13 @@ export default function SelectWallet() {
 			xumm.user.account.then((account) => {
 				walletAddress.setState({ walletAddress: account });
 				modalState.setState({ isModalOpen: false });
+				Cookies.set("walletAddress", account!);
 			});
 		});
 
 		xumm.on("logout", async () => {
 			walletAddress.setState({ walletAddress: "" });
+			Cookies.remove("walletAddress");
 		});
 	}
 	const wallets = [

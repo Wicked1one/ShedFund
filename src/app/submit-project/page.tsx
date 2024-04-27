@@ -48,7 +48,9 @@ export default function Submit() {
 			}
 
 			setIsloading(true);
-			await Api.handlePost("/register-project", project)
+			await Api.handlePost("/register-project", project, {
+				"Content-Type": "multipart/form-data",
+			})
 				.then((response) => {
 					setIsloading(false);
 					toast.success(
