@@ -76,7 +76,7 @@ export default function SelectWallet() {
 					<div
 						key={index + Math.random()}
 						onClick={() => {
-							!wallet.disabled && wallet.onclick();
+							wallet.onclick();
 						}}
 						aria-disabled={wallet.disabled}
 						className={`w-full cursor-pointer flex rounded-lg items-center  pl-2 py-2  mb-4 ${
