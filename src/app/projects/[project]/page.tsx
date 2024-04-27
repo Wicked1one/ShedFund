@@ -146,6 +146,7 @@ export default function Projecct() {
 
 						<button
 							onClick={() => {
+								console.log({ addresses: data.address });
 								modalState.setState({
 									modalType: "fund",
 									address: data.address,

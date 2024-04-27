@@ -20,8 +20,8 @@ export default function SelectWallet() {
 		);
 
 		xumm.on("success", async () => {
-			xumm.user.account.then((account) => {
-				walletAddress.setState({ walletAddress: account });
+			xumm.user.token.then((account) => {
+				walletAddress.setState({ walletAddress: account! });
 				modalState.setState({ isModalOpen: false });
 				Cookies.set("walletAddress", account!);
 			});

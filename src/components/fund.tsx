@@ -44,7 +44,7 @@ export default function Fund() {
 		}
 	}
 	return (
-		<div className="h-full bg-transparent w-full">
+		<div className="h-full bg-transparent flex items-center justify-center w-full">
 			<ToastContainer />
 			<div className=" bg-black p-3 w-full h-[40%] md:w-[500px]  w-full  ">
 				{isLoading ? (
@@ -77,7 +77,7 @@ export default function Fund() {
 									className="border text-white bg-gray-600 w-full p-2 rounded placeholder:text-smaller"
 									placeholder="address"
 									name="rAddress"
-									defaultValue={address || ""}
+									defaultValue={fundTo || ""}
 								/>
 							</div>
 							<div className="">
