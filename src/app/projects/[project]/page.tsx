@@ -9,6 +9,7 @@ import Nav from "@/components/Nav";
 
 import { IoCopyOutline } from "react-icons/io5";
 import Spinner from "@/components/Spinner";
+import { modalState } from "@/store";
 
 export default function Projecct() {
 	const params = useParams();
@@ -25,22 +26,44 @@ export default function Projecct() {
 		console.log(params);
 		if (navigator.onLine) {
 			setIsLoading(true);
-			Api.handleFetch(`/all-projects/${params.project}`)
-				.then((response) => {
-					console.log(response);
-					setIsLoading(false);
-					setData(response.data);
-				})
-				.catch((error) => {
-					setIsLoading(false);
-					console.log(error);
-					toast.error("There was an error fetching projects");
-				});
+			init;
 		} else {
 			// Show toast
 			toast.error("You are not connected to the internet");
 		}
 	}, []);
+
+	async function init() {
+		await fetchProject();
+		fetchWalletBalance();
+	}
+
+	function fetchProject() {
+		Api.handleFetch(`/all-projects/${params.project}`)
+			.then((response) => {
+				console.log(response);
+				setIsLoading(false);
+				setData(response.data);
+			})
+			.catch((error) => {
+				setIsLoading(false);
+				console.log(error);
+				toast.error("There was an error fetching projects");
+			});
+	}
+
+	function fetchWalletBalance() {
+		console.log({ address: data.address });
+		Api.handlePost("/getBalance", { address: data.address })
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				setIsLoading(false);
+				console.log(error);
+				toast.error("There was an error fetching projects");
+			});
+	}
 
 	function calculatePercent(part: number, whole: number) {
 		if (whole !== 0) {
@@ -48,7 +71,7 @@ export default function Projecct() {
 			console.log(percentage);
 			return (
 				<div className=" flex flex-col">
-					<div className="address rounded h-[10px] w-[150px] bg-gray-200">
+					<div className="address overflow-x-hidden rounded h-[10px] w-[150px] bg-gray-200">
 						<div
 							style={{
 								width: `${percentage}%`,
@@ -82,13 +105,16 @@ export default function Projecct() {
 							{data.title}
 						</p>
 						<div className="flex mt-5 justify-between md:flex-row flex-col md:items-center items-start ">
-							<div className="flex gap-x-5">
+							<div className="flex gap-x-5 mb-5">
 								<p className="address text-small font-medium md:mb-0 mb-2">
 									XRP address:{" "}
-									<span className="text-gray-400">{data.address} </span>
+									<span className="text-gray-400 text-rose-500">
+										{data.address}{" "}
+									</span>
 								</p>
 								<span>
 									<IoCopyOutline
+										size={20}
 										onClick={() => {
 											navigator.clipboard.writeText(data.address);
 											toast.success("address copied to clipboard");
@@ -100,7 +126,12 @@ export default function Projecct() {
 						</div>
 						<p className="mt-5 text-small">{data.desc}</p>
 
-						<button className="alig py-2 mt-20 align-self-end bg-amber-500 rounded text-white">
+						<button
+							onClick={() => {
+								modalState.setState({ modalType: "fund" });
+							}}
+							className="alig py-2 mt-20 align-self-end bg-amber-500 rounded text-white"
+						>
 							Fund
 						</button>
 					</div>

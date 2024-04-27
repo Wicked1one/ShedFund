@@ -12,15 +12,17 @@ export const inputfields = [
 		name: "desc",
 	},
 	{
-		title: "Beneficiary Addressoject",
+		title: "Beneficiary Address",
 		placeholder: "Wallet address ",
 		isTextArea: false,
 		name: "address",
+		isWallet: true,
 	},
 	{
-		title: "Target amount  (in USD)",
+		title: "Target amount (in XRP)",
 		placeholder: "Amount needed for your project",
 		isTextArea: false,
 		name: "amount",
+		type: "number",
 	},
 ];

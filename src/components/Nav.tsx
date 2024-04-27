@@ -2,43 +2,23 @@
 import "dotenv/config.js";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { navStoreModel } from "@/store";
+import { modalState, navStoreModel, walletAddress } from "@/store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Xumm } from "xumm";
 
 export default function Nav() {
+	const wallet = walletAddress((state) => state.walletAddress);
+	const pathname = usePathname();
 	var xumm = new Xumm(
 		"ca9819b9-4b01-41ba-9716-ad7844d1b0e1",
 		"fe90fc1b-553a-4769-8979-9b5749803e47"
 	);
-
-	const [connectedAccount, setConnectedAccount] = useState("");
-	const pathname = usePathname();
 	useEffect(() => {
-		console.log(process.env.apiKey);
 		navStoreModel.setState({ isNavOpen: false });
-		connectWallet();
 	}, [pathname]);
 
 	const isNavOpen = navStoreModel((state) => state.isNavOpen);
-
-	async function connectWallet() {
-		console.log("Running connecgt wallet");
-		xumm.on("ready", () =>
-			console.log("Ready (e.g. hide loading state of page)")
-		);
-
-		xumm.on("success", async () => {
-			xumm.user.account.then((account) => {
-				setConnectedAccount(account!);
-			});
-		});
-
-		xumm.on("logout", async () => {
-			setConnectedAccount("");
-		});
-	}
 
 	return (
 		<div>
@@ -51,20 +31,20 @@ export default function Nav() {
 					</Link>
 					<Image src="/assets/logo.svg" alt="" width={25} height={25} />
 				</div>
-				<div className="log flex items center  gap-x-5">
-					{connectedAccount ? (
+				<div className="log w-[40%] flex items-center justify-end  gap-x-5">
+					{wallet ? (
 						<div
-							className="w-[30%] overflow-x-hidden"
+							className="overflow-x-hidden  justify-self-end"
 							onClick={() => {
 								xumm.logout();
 							}}
 						>
-							<p className="text-[12px] text-gray-400">{connectedAccount}</p>
+							<p className="text-[12px]  text-gray-400">{wallet}</p>
 						</div>
 					) : (
 						<Image
 							onClick={() => {
-								xumm.authorize();
+								modalState.setState({ isModalOpen: true, modalType: "wallet" });
 							}}
 							src="/assets/wallet.svg"
 							alt=""

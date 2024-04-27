@@ -9,6 +9,7 @@ import Newsletter from "@/components/Newsletter";
 import { Api } from "@/api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IoClipboard, IoClipboardOutline } from "react-icons/io5";
 
 export default function Submit() {
 	const [project, setProject] = useState({
@@ -135,12 +136,39 @@ export default function Submit() {
 								<label className="block mb-3  text-small" htmlFor="">
 									{field.title}
 								</label>
-								<input
-									className="border w-full p-2 rounded placeholder:text-smaller"
-									placeholder={field.placeholder}
-									name={field.name}
-									onChange={handleChange}
-								/>
+								<div
+									className={`${
+										field.isWallet && " flex items-center gap-x-5"
+									}`}
+								>
+									<input
+										className="border w-full p-2 rounded placeholder:text-smaller"
+										placeholder={field.placeholder}
+										name={field.name}
+										id={field.name}
+										type={field.type || ""}
+										onChange={handleChange}
+									/>
+
+									{field.isWallet && (
+										<IoClipboardOutline
+											onClick={async () => {
+												const value = await navigator.clipboard.readText();
+												setProject({
+													...project,
+													address: value,
+												});
+												// Set the value of input field directly
+												const addressInput = document.getElementById(
+													"address"
+												) as HTMLInputElement;
+												if (addressInput) {
+													addressInput.value = value;
+												}
+											}}
+										/>
+									)}
+								</div>
 							</div>
 						);
 					})}

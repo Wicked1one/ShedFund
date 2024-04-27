@@ -1,0 +1,10 @@
+.wallets {
+	width: 400px;
+	height: 300px;
+}
+
+@media (max-width: 768px) {
+	.wallets {
+		width: 100%;
+	}
+}
