@@ -46,13 +46,13 @@ export default function Fund() {
 	return (
 		<div className="h-full bg-transparent flex items-center justify-center w-full">
 			<ToastContainer />
-			<div className=" bg-black p-3 w-full h-[40%] md:w-[500px]  w-full  ">
+			<div className=" bg-black p-3 w-full h-[45%] md:w-[500px]  w-full  ">
 				{isLoading ? (
 					<div className="h-[500px] flex items-center justify-center w-full">
 						<Spinner isloading={isLoading}></Spinner>
 					</div>
 				) : (
-					<div>
+					<div className="">
 						<div className="walletHeader flex justify-center relative">
 							<div className="walletHeaderText flex flex-col w-4/5 text-center md:text-start ">
 								<p className="whTitle text-white text-center text-medium">
@@ -99,10 +99,12 @@ export default function Fund() {
 							</div>
 						</div>
 						<button
-							onClick={() => {}}
+							onClick={() => {
+								fund();
+							}}
 							className="w-full py-2 mt-10 align-self-end bg-amber-500 rounded text-white"
 						>
-							Fund
+							{isLoading ? <Spinner isloading={isLoading} /> : "Fund"}
 						</button>
 					</div>
 				)}

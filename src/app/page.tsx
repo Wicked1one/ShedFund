@@ -69,8 +69,8 @@ export default function Home() {
 					<div className="h-[500px] mt-10 flex items-center justify-center w-full">
 						<Spinner isloading={isLoading}></Spinner>
 					</div>
-				) : data.length < 1 ? (
-					<div></div>
+				) : !isLoading && data.length == 0 ? (
+					<div>nodata was found</div>
 				) : (
 					data.map((data, i) =>
 						i <= 7 ? (

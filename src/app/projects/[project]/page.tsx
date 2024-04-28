@@ -79,13 +79,13 @@ export default function Projecct() {
 			const percentage = (part / whole) * 100;
 			console.log(percentage);
 			return (
-				<div className=" flex flex-col">
+				<div className=" flex flex-col md:w-[80%] w-[75%]">
 					{iBalanceLoading ? (
 						<div className="h-[30px] flex items-center justify-center w-[50%]">
 							<Spinner isloading={isLoading}></Spinner>
 						</div>
 					) : (
-						<div className="address overflow-x-hidden rounded h-[10px] w-[150px] bg-gray-200">
+						<div className="address overflow-x-hidden rounded h-[10px] w-full bg-gray-200">
 							<div
 								style={{
 									width: `${percentage}%`,
@@ -120,7 +120,7 @@ export default function Projecct() {
 							{data.title}
 						</p>
 						<div className="flex mt-5 justify-between md:flex-row flex-col md:items-center items-start ">
-							<div className="flex gap-x-5 mb-5">
+							<div className="flex items-center gap-x-5 mb-5">
 								<p className="address text-small font-medium md:mb-0 mb-2">
 									XRP address:{" "}
 									<span className="text-gray-400 text-rose-500">
@@ -137,11 +137,11 @@ export default function Projecct() {
 									/>
 								</span>
 							</div>
-							{calculatePercent(
-								Number.parseInt(balance),
-								Number.parseInt(data.amount)
-							)}
 						</div>
+						{calculatePercent(
+							Number.parseInt(balance),
+							Number.parseInt(data.amount)
+						)}
 						<p className="mt-5 text-small">{data.desc}</p>
 
 						<button
