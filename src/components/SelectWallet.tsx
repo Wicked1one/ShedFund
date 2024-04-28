@@ -78,7 +78,6 @@ export default function SelectWallet() {
 						onClick={() => {
 							!wallet.disabled && wallet.onclick();
 						}}
-						aria-disabled={wallet.disabled}
 						className={`w-full cursor-pointer flex rounded-lg items-center  pl-2 py-2  mb-4 ${
 							wallet.disabled ? "bg-gray-900" : "bg-gray-600"
 						}`}
