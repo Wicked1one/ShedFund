@@ -31,13 +31,13 @@ export default function Nav() {
 			xumm.user.account.then((account) => {
 				walletAddress.setState({ walletAddress: account });
 				modalState.setState({ isModalOpen: false });
-				// Cookies.set("walletAddress", account!);
+				Cookies.set("walletAddress", account!);
 			});
 		});
 
 		xumm.on("logout", async () => {
 			walletAddress.setState({ walletAddress: "" });
-			// Cookies.remove("walletAddress");
+			Cookies.remove("walletAddress");
 		});
 	}
 
