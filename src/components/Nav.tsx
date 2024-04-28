@@ -9,7 +9,6 @@ import { Xumm } from "xumm";
 import Cookies from "js-cookie";
 
 export default function Nav() {
-	const wallet = walletAddress((state) => state.walletAddress);
 	const pathname = usePathname();
 	const address = Cookies.get("walletAddress");
 	var xumm = new Xumm(
@@ -29,14 +28,12 @@ export default function Nav() {
 
 		xumm.on("success", async () => {
 			xumm.user.account.then((account) => {
-				walletAddress.setState({ walletAddress: account });
-				modalState.setState({ isModalOpen: false });
+				modalState.setState({ isModalOpen: false, modalType: "" });
 				Cookies.set("walletAddress", account!);
 			});
 		});
 
 		xumm.on("logout", async () => {
-			walletAddress.setState({ walletAddress: "" });
 			Cookies.remove("walletAddress");
 		});
 	}
@@ -55,14 +52,17 @@ export default function Nav() {
 					<Image src="/assets/logo.svg" alt="" width={25} height={25} />
 				</div>
 				<div className="log w-[40%] flex items-center justify-end  gap-x-5">
-					{wallet ? (
-						<div
-							className="overflow-x-hidden  justify-self-end"
-							onClick={() => {
-								xumm.logout();
-							}}
-						>
-							<p className="text-[12px]  text-gray-400">{address}</p>
+					{address ? (
+						<div className="overflow-x-hidden md:flex items-center gap-x-2  justify-self-end">
+							<p className="text-[12px] text-gray-400">{address}</p>
+							<button
+								onClick={() => {
+									xumm.logout();
+								}}
+								className="text-[10px] bg-amber-500 cursor-pointer rounded p-1 text-white"
+							>
+								Disconnect
+							</button>
 						</div>
 					) : (
 						<Image
