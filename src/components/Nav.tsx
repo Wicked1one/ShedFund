@@ -43,7 +43,7 @@ export default function Nav() {
 								xumm.logout();
 							}}
 						>
-							<p className="text-[12px]  text-gray-400">{wallet}</p>
+							<p className="text-[12px]  text-gray-400">{address}</p>
 						</div>
 					) : (
 						<Image
