@@ -16,11 +16,30 @@ export default function Nav() {
 		"ca9819b9-4b01-41ba-9716-ad7844d1b0e1",
 		"fe90fc1b-553a-4769-8979-9b5749803e47"
 	);
+
 	useEffect(() => {
 		navStoreModel.setState({ isNavOpen: false });
-		console.log(wallet);
-		console.log(address);
+		connectWallet();
 	}, [pathname]);
+
+	async function connectWallet() {
+		xumm.on("ready", () =>
+			console.log("Ready (e.g. hide loading state of page)")
+		);
+
+		xumm.on("success", async () => {
+			xumm.user.account.then((account) => {
+				walletAddress.setState({ walletAddress: account });
+				modalState.setState({ isModalOpen: false });
+				// Cookies.set("walletAddress", account!);
+			});
+		});
+
+		xumm.on("logout", async () => {
+			walletAddress.setState({ walletAddress: "" });
+			// Cookies.remove("walletAddress");
+		});
+	}
 
 	const isNavOpen = navStoreModel((state) => state.isNavOpen);
 
@@ -48,7 +67,11 @@ export default function Nav() {
 					) : (
 						<Image
 							onClick={() => {
-								modalState.setState({ isModalOpen: true, modalType: "wallet" });
+								modalState.setState({
+									isModalOpen: true,
+									modalType: "wallet",
+									xumm: xumm,
+								});
 							}}
 							src="/assets/wallet.svg"
 							alt=""

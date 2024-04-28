@@ -1,3 +1,4 @@
+import { Xumm } from "xumm";
 import { create } from "zustand";
 
 interface navState {
@@ -11,12 +12,14 @@ interface modalState {
 	isModalOpen: boolean;
 	modalType: string;
 	address: string;
+	xumm: any;
 }
 
 export const modalState = create<modalState>((set) => ({
 	isModalOpen: false,
 	modalType: "",
 	address: "",
+	xumm: "",
 }));
 interface walletAddressState {
 	walletAddress: string;
