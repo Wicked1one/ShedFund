@@ -1,4 +1,4 @@
-import { modalState, walletAddress } from "@/store";
+import { modalState } from "@/store";
 import React from "react";
 import { IoClose } from "react-icons/io5";
 

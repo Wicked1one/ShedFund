@@ -1,6 +1,6 @@
 "use client";
 import "dotenv/config.js";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { modalState, navStoreModel, walletAddress } from "@/store";
 import Link from "next/link";
