@@ -6,16 +6,20 @@ import { modalState, navStoreModel, walletAddress } from "@/store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Xumm } from "xumm";
+import Cookies from "js-cookie";
 
 export default function Nav() {
 	const wallet = walletAddress((state) => state.walletAddress);
 	const pathname = usePathname();
+	const address = Cookies.get("walletAddress");
 	var xumm = new Xumm(
 		"ca9819b9-4b01-41ba-9716-ad7844d1b0e1",
 		"fe90fc1b-553a-4769-8979-9b5749803e47"
 	);
 	useEffect(() => {
 		navStoreModel.setState({ isNavOpen: false });
+		console.log(wallet);
+		console.log(address);
 	}, [pathname]);
 
 	const isNavOpen = navStoreModel((state) => state.isNavOpen);
