@@ -57,7 +57,13 @@ export default function Nav() {
 							<p className="text-[12px] text-gray-400">{address}</p>
 							<button
 								onClick={() => {
-									xumm.logout();
+									console.log("Logged out");
+									try {
+										console.log("Logout button clicked");
+										xumm.logout();
+									} catch (error) {
+										console.error("Error during logout:", error);
+									}
 								}}
 								className="text-[10px] bg-amber-500 cursor-pointer rounded p-1 text-white"
 							>
