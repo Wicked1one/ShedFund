@@ -61,6 +61,7 @@ export default function Nav() {
 										console.log("Logout button clicked");
 										Cookies.remove("walletAddress");
 										xumm.logout();
+										console.log(address);
 									} catch (error) {
 										console.error("Error during logout:", error);
 									}
