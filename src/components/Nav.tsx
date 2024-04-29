@@ -22,7 +22,7 @@ export default function Nav() {
 		modalState.setState({ isModalOpen: false, modalType: "" });
 		setAddress(cAddress || "");
 		connectWallet();
-	}, [pathname]);
+	}, [pathname, address]);
 
 	async function connectWallet() {
 		xumm.on("ready", () =>
@@ -33,15 +33,14 @@ export default function Nav() {
 			xumm.user.account.then((account) => {
 				modalState.setState({ isModalOpen: false, modalType: "" });
 				Cookies.set("walletAddress", account!);
+				console.log("COnnected");
 				setAddress(account!);
 			});
 		});
 
 		xumm.on("logout", async () => {
-			xumm.logout();
-			Cookies.remove("walletAddress");
-			setAddress("");
 			console.log("Logout completed");
+			Cookies.remove("walletAddress");
 		});
 	}
 
@@ -63,11 +62,11 @@ export default function Nav() {
 						<div className="overflow-x-hidden md:flex items-center gap-x-2  justify-self-end">
 							<p className="text-[12px] text-gray-400">{address}</p>
 							<button
-								onClick={async () => {
+								onClick={() => {
 									try {
 										console.log("Logout button clicked");
-
-										await xumm.logout();
+										setAddress("");
+										xumm.logout();
 										console.log(address);
 									} catch (error) {
 										console.error("Error during logout:", error);
