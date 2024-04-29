@@ -1,6 +1,6 @@
 "use client";
 import "dotenv/config.js";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { modalState, navStoreModel, walletAddress } from "@/store";
 import Link from "next/link";
@@ -10,14 +10,17 @@ import Cookies from "js-cookie";
 
 export default function Nav() {
 	const pathname = usePathname();
-	const address = Cookies.get("walletAddress");
+	const cAddress = Cookies.get("walletAddress");
 	var xumm = new Xumm(
 		"ca9819b9-4b01-41ba-9716-ad7844d1b0e1",
 		"fe90fc1b-553a-4769-8979-9b5749803e47"
 	);
+	const [address, setAddress] = useState("");
 
 	useEffect(() => {
 		navStoreModel.setState({ isNavOpen: false });
+		modalState.setState({ isModalOpen: false, modalType: "" });
+		cAddress && setAddress(cAddress);
 		connectWallet();
 	}, [pathname]);
 
@@ -60,6 +63,7 @@ export default function Nav() {
 									try {
 										console.log("Logout button clicked");
 										Cookies.remove("walletAddress");
+										setAddress("");
 										xumm.logout();
 										console.log(address);
 									} catch (error) {
