@@ -20,7 +20,7 @@ export default function Nav() {
 	useEffect(() => {
 		navStoreModel.setState({ isNavOpen: false });
 		modalState.setState({ isModalOpen: false, modalType: "" });
-		cAddress && setAddress(cAddress);
+		setAddress(cAddress || "");
 		connectWallet();
 	}, [pathname]);
 
