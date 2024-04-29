@@ -33,12 +33,14 @@ export default function Nav() {
 			xumm.user.account.then((account) => {
 				modalState.setState({ isModalOpen: false, modalType: "" });
 				Cookies.set("walletAddress", account!);
+				setAddress(account!);
 			});
 		});
 
 		xumm.on("logout", async () => {
 			Cookies.remove("walletAddress");
 			setAddress("");
+			console.log("Logout completed");
 		});
 	}
 
@@ -62,7 +64,11 @@ export default function Nav() {
 							<button
 								onClick={() => {
 									try {
+										console.log("Logout button clicked");
+										Cookies.remove("walletAddress");
+										setAddress("");
 										xumm.logout();
+										console.log(address);
 									} catch (error) {
 										console.error("Error during logout:", error);
 									}
