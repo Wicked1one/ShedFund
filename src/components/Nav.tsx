@@ -62,12 +62,11 @@ export default function Nav() {
 						<div className="overflow-x-hidden md:flex items-center gap-x-2  justify-self-end">
 							<p className="text-[12px] text-gray-400">{address}</p>
 							<button
-								onClick={() => {
+								onClick={async () => {
 									try {
 										console.log("Logout button clicked");
-										Cookies.remove("walletAddress");
-										setAddress("");
-										xumm.logout();
+
+										await xumm.logout();
 										console.log(address);
 									} catch (error) {
 										console.error("Error during logout:", error);
