@@ -37,7 +37,7 @@ export default function Nav() {
 		});
 
 		xumm.on("logout", async () => {
-			Cookies.remove("walletAddress");
+			xumm.logout();
 		});
 	}
 
