@@ -37,7 +37,8 @@ export default function Nav() {
 		});
 
 		xumm.on("logout", async () => {
-			xumm.logout();
+			Cookies.remove("walletAddress");
+			setAddress("");
 		});
 	}
 
@@ -61,11 +62,7 @@ export default function Nav() {
 							<button
 								onClick={() => {
 									try {
-										console.log("Logout button clicked");
-										Cookies.remove("walletAddress");
-										setAddress("");
 										xumm.logout();
-										console.log(address);
 									} catch (error) {
 										console.error("Error during logout:", error);
 									}
