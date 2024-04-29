@@ -38,6 +38,7 @@ export default function Nav() {
 		});
 
 		xumm.on("logout", async () => {
+			xumm.logout();
 			Cookies.remove("walletAddress");
 			setAddress("");
 			console.log("Logout completed");
