@@ -65,8 +65,9 @@ export default function Nav() {
 								onClick={() => {
 									try {
 										console.log("Logout button clicked");
-										setAddress("");
+
 										xumm.logout();
+										setAddress("");
 										console.log(address);
 									} catch (error) {
 										console.error("Error during logout:", error);
