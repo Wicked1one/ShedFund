@@ -15,9 +15,13 @@ export class Api {
 	static async handlePost(path: string, payload: {}, encoding: {}) {
 		console.log(path);
 		try {
-			const response = await axios.post(this.baseUrl + path, payload, {
-				headers: encoding,
-			});
+			const response = await axios.post(
+				`https://localhost:3000${path}`,
+				payload,
+				{
+					headers: encoding,
+				}
+			);
 			console.log(response);
 			return response.data;
 		} catch (e) {
