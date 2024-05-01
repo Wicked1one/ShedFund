@@ -10,11 +10,13 @@ import Spinner from "./Spinner";
 export default function Fund() {
 	const fundTo = modalState((state) => state.address);
 	const address = Cookies.get("walletAddress");
+	const secret = Cookies.get("walletSecret");
 	const [isLoading, setIsLoading] = useState(false);
 	const [fundData, setFundData] = useState({
 		fundTo: fundTo,
 		amount: "",
 		address: address,
+		secret: secret,
 	});
 
 	function fund() {
@@ -28,11 +30,17 @@ export default function Fund() {
 						})
 							.then((res) => {
 								console.log(res);
+
+								modalState.setState({ isModalOpen: false, modalType: "" });
+								toast.success("funded sucessfully");
 								setIsLoading(false);
 							})
 							.catch((err) => {
 								console.log(err);
 								setIsLoading(false);
+								toast.success(
+									"someethign went wrong when attempting to fund project"
+								);
 							});
 			} else {
 				setIsLoading(false);
@@ -101,6 +109,7 @@ export default function Fund() {
 						<button
 							onClick={() => {
 								fund();
+								console.log(fundData);
 							}}
 							className="w-full py-2 mt-10 align-self-end bg-amber-500 rounded text-white"
 						>
