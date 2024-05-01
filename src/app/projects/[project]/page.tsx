@@ -150,6 +150,7 @@ export default function Projecct() {
 								modalState.setState({
 									modalType: "fund",
 									address: data.address,
+									id: params.project,
 								});
 							}}
 							className="alig py-2 mt-20 align-self-end bg-amber-500 rounded text-white"

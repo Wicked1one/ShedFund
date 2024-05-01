@@ -23,7 +23,7 @@ export default function Fund() {
 		if (navigator.onLine) {
 			if (address) {
 				setIsLoading(true);
-				if (fundData.address == "")
+				if (fundData.address != "")
 					fundData.address != "" &&
 						Api.handlePost("/fund", fundData, {
 							ContentType: "application/json",

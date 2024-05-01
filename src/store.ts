@@ -12,14 +12,14 @@ interface modalState {
 	isModalOpen: boolean;
 	modalType: string;
 	address: string;
-	xumm: any;
+	id: any;
 }
 
 export const modalState = create<modalState>((set) => ({
 	isModalOpen: false,
 	modalType: "",
 	address: "",
-	xumm: "",
+	id: "",
 }));
 interface walletAddressState {
 	walletAddress: string;
