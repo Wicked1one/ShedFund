@@ -64,7 +64,7 @@ export default function Home() {
 					</p>
 				</Link>
 			)}
-			<div className="flex md:flex-row flex-col gap-5 justify-center  px-3 flex-wrap">
+			<div className="flex md:flex-row flex-col gap-5 justify-start gap-x-10  px-3 flex-wrap">
 				{isLoading ? (
 					<div className="h-[500px] mt-10 flex items-center justify-center w-full">
 						<Spinner isloading={isLoading}></Spinner>
@@ -76,20 +76,20 @@ export default function Home() {
 						i <= 7 ? (
 							<Link
 								key={i + data["title"]}
-								className="md:w-[30%] w-full h-[300px]"
+								className="md:w-[30%] w-full h-[300px] "
 								href={`/projects/${data["_id"]}`}
 							>
-								<div className=" bg-slate-50 hover:cursor-pointer rounded flex flex-col	">
+								<div className=" bg-slate-50 hover:-translate-y-2 duration-500 p-2 hover:cursor-pointer rounded flex flex-col	">
 									<img
 										className="h-[200px] w-full object-cover object-top"
 										src={data["image"]}
 										alt={""}
 									/>
 									<div className="details mt-1 px-1">
-										<p className="title text-title text-gray-500 font-medium">
+										<p className="title text-title text-black font-medium">
 											{data["title"]}
 										</p>
-										<p className="address font-light text-small">
+										<p className="address font-light text-gray-400 text-small">
 											{data["address"]}
 										</p>
 									</div>

@@ -104,8 +104,8 @@ export default function Nav() {
 			</div>
 			<div
 				className={`navLinks ${
-					isNavOpen ? "h-[max-content]" : "h-[0] "
-				}  overflow-hidden transition ease-in-out delay-5000 w-full flex flex-col items-end justify-center`}
+					isNavOpen ? "h-[max-content] transition duration-1000" : "h-[0] "
+				}   w-full  overflow-hidden  flex flex-col items-end justify-center`}
 			>
 				<Link href="/submit-project">
 					<p className="link hover:cursor-pointer text-small mb-3">

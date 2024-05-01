@@ -95,8 +95,8 @@ export default function Projecct() {
 						</div>
 					)}
 					<div className="flex justify-between">
-						<p className="address  text-small text-gray-400">{part}</p>
-						<p className="address text-small text-gray-400">{whole}</p>
+						<p className="address  text-small text-gray-400">{part || ""}</p>
+						<p className="address text-small text-gray-400">{whole || ""}</p>
 					</div>
 				</div>
 			);

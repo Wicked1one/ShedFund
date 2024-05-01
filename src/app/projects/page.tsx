@@ -48,17 +48,17 @@ export default function Projects() {
 				) : (
 					data.map((data, i) => (
 						<Link key={i + data["title"]} href={`/projects/${data["_id"]}`}>
-							<div className=" bg-gray-200 md:h-[300px] h-[250px] md:mb-10 mb-5 flex hover:cursor-pointer rounded w-full	">
+							<div className=" bg-gray-200 md:h-[300px] h-[200px] md:mb-10 mb-5 flex hover:cursor-pointer rounded w-full	">
 								<img
-									className="w-[40%] object-fit-cover"
+									className="md:w-[40%] w-[50%] object-fit-cover"
 									src={data["image"]}
 									alt={""}
 								/>
-								<div className="details flex flex-col justify-center  ml-10 mt-1 px-1">
-									<p className="title md:text-3xl text-title text-gray-500 font-medium">
+								<div className="details flex flex-col md:justify-center  md:ml-10 ml-3 mt-1 px-1">
+									<p className="title md:text-3xl text-[14px] text-gray-500 md:font-medium font-bold md:mt-0 mt-10">
 										{data["title"]}
 									</p>
-									<p className="address font-light text-small">
+									<p className="address font-light md:text-small md:w-full w-[100px] overflow-x-hidden  text-[8px]">
 										{data["address"]}
 									</p>
 								</div>
