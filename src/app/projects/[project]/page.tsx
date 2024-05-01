@@ -10,7 +10,6 @@ import Nav from "@/components/Nav";
 import { IoCopyOutline } from "react-icons/io5";
 import Spinner from "@/components/Spinner";
 import { modalState } from "@/store";
-import { FaBullseye } from "react-icons/fa6";
 
 export default function Projecct() {
 	const params = useParams();
@@ -21,12 +20,12 @@ export default function Projecct() {
 		desc: "",
 		address: "",
 		amount: "",
+		tx: [],
 	});
 	const [balance, setBalance] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [iBalanceLoading, setIsBalanceIsLoading] = useState(false);
 	useEffect(() => {
-		console.log(params);
 		if (navigator.onLine) {
 			setIsLoading(true);
 			fetchProject();
@@ -39,9 +38,8 @@ export default function Projecct() {
 	function fetchProject() {
 		Api.handleFetch(`/all-projects/${params.project}`)
 			.then((response) => {
-				console.log(response);
+				console.log(response.data);
 				setIsLoading(false);
-
 				setData(response.data);
 				fetchWalletBalance(response.data.address);
 			})
@@ -55,15 +53,12 @@ export default function Projecct() {
 
 	function fetchWalletBalance(address: string) {
 		setIsBalanceIsLoading(true);
-		console.log({ address: address });
 		Api.handlePost(
 			"/getBalance",
 			{ address: address },
 			{ ContentType: "application/x-www-form-urlencoded" }
 		)
 			.then((response) => {
-				console.log({ balance: response.payload });
-
 				setBalance(response.payload.balance[0].value);
 				setIsBalanceIsLoading(false);
 			})
@@ -77,7 +72,7 @@ export default function Projecct() {
 	function calculatePercent(part: number, whole: number) {
 		if (whole !== 0) {
 			const percentage = (part / whole) * 100;
-			console.log(percentage);
+
 			return (
 				<div className=" flex flex-col md:w-[80%] w-[75%]">
 					{iBalanceLoading ? (
@@ -160,6 +155,27 @@ export default function Projecct() {
 					</div>
 				</div>
 			)}
+			<div className="mt-10 pb-5">
+				<p className="text-gray-400 text-[10px]">Transactions</p>
+				{data.tx.length > 0 &&
+					data.tx.map((tx) => (
+						<div className="my-3">
+							<p className="text-[10px] text-green-500">Success</p>
+							<div className="flex w-full items-center justify-between">
+								<div>
+									<p className="text-[12px]">Account</p>
+									<p className="text-[10px] text-gray-400">{tx["Account"]}</p>
+								</div>
+								<div>
+									<p className="text-[12px]">amount</p>
+									<p className=" text-[12px] text-amber-800">
+										{tx["Amount"]} drops
+									</p>
+								</div>
+							</div>
+						</div>
+					))}
+			</div>
 		</div>
 	);
 }
