@@ -158,8 +158,8 @@ export default function Projecct() {
 			<div className="mt-10 pb-5">
 				<p className="text-gray-400 text-[10px]">Transactions</p>
 				{data.tx.length > 0 &&
-					data.tx.map((tx) => (
-						<div className="my-3">
+					data.tx.map((tx, i) => (
+						<div key={i + Math.random()} className="my-3">
 							<p className="text-[10px] text-green-500">Success</p>
 							<div className="flex w-full items-center justify-between">
 								<div>
