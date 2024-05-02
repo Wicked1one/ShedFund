@@ -1,5 +1,5 @@
 import { Api } from "@/api/api";
-import { modalState } from "@/store";
+import { modalState, walletBalance } from "@/store";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { IoClose } from "react-icons/io5";
@@ -33,7 +33,18 @@ export default function Fund() {
 
 								modalState.setState({ isModalOpen: false, modalType: "" });
 								toast.success("funded sucessfully");
+
 								setIsLoading(false);
+
+								Api.handlePost(
+									"/getBalance",
+									{ address: address },
+									{ ContentType: "application/x-www-form-urlencoded" }
+								).then((res) => {
+									walletBalance.setState({
+										walletBalance: res.payload.balance[0].value,
+									});
+								});
 							})
 							.catch((err) => {
 								console.log(err);

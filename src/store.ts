@@ -37,3 +37,10 @@ interface walletBalanceState {
 export const walletBalance = create<walletBalanceState>((set) => ({
 	walletBalance: "",
 }));
+interface pageWalletBalanceState {
+	walletBalance: string;
+}
+
+export const pageWalletBalance = create<pageWalletBalanceState>((set) => ({
+	walletBalance: "",
+}));

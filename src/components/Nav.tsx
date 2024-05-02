@@ -23,7 +23,6 @@ export default function Nav() {
 	// );
 	const address = Cookies.get("walletAddress");
 	const [IsBalanceIsLoading, setIsBalanceIsLoading] = useState(false);
-	const [balance, setBalance] = useState("");
 	const Balance = walletBalance((state) => state.walletBalance);
 
 	useEffect(() => {
@@ -34,18 +33,18 @@ export default function Nav() {
 		address && walletAddress.setState({ walletAddress: address });
 
 		// fetch wallet balance of use and add it to balance state
-
-		const balance = fetchWalletBalance(
-			address!,
-			setIsBalanceIsLoading,
-			setBalance
-		);
-		console.log(balance);
-		walletBalance.setState({ walletBalance: balance! });
-
+		getbal();
 		// connectWallet();
 	}, [pathname, address]);
 
+	async function getbal() {
+		await fetchWalletBalance(
+			address!,
+			setIsBalanceIsLoading,
+
+			false
+		);
+	}
 	// async function connectWallet() {
 	// 	xumm.on("ready", () =>
 	// 		console.log("Ready (e.g. hide loading state of page)")
@@ -80,8 +79,12 @@ export default function Nav() {
 							<p className="text-[12px] items-center text-gray-400">
 								{cAddress}
 							</p>
-							<div className="md:block flex items-center text-[10px]">
-								{Balance && <p className="text-black">bal : {Balance}</p>}
+							<div className="md:block flex justify-between items-center text-[10px]">
+								{Balance && (
+									<p className="text-black">
+										bal : {Number.parseFloat(Balance).toFixed(2)}
+									</p>
+								)}
 								<button
 									onClick={async () => {
 										try {

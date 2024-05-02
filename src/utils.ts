@@ -1,10 +1,12 @@
 import { toast } from "react-toastify";
 import { Api } from "./api/api";
+import { pageWalletBalance, walletBalance } from "./store";
 
-export function fetchWalletBalance(
+export async function fetchWalletBalance(
 	address: string,
 	setIsBalanceIsLoading: any,
-	setBalance: any
+
+	showToast: boolean
 ) {
 	setIsBalanceIsLoading(true);
 	Api.handlePost(
@@ -13,13 +15,18 @@ export function fetchWalletBalance(
 		{ ContentType: "application/x-www-form-urlencoded" }
 	)
 		.then((response) => {
-			setBalance(response.payload.balance[0].value);
 			setIsBalanceIsLoading(false);
-			return response.payload.balance[0].value;
+			console.log(response.payload.balance[0].value);
+			!showToast
+				? walletBalance.setState({
+						walletBalance: response.payload.balance[0].value,
+				  })
+				: pageWalletBalance.setState({
+						walletBalance: response.payload.balance[0].value,
+				  });
 		})
 		.catch((error) => {
 			setIsBalanceIsLoading(false);
 			console.log(error);
-			toast.error("There was an error fetching walletbalance");
 		});
 }

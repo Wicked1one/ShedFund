@@ -9,12 +9,12 @@ import Nav from "@/components/Nav";
 
 import { IoCopyOutline } from "react-icons/io5";
 import Spinner from "@/components/Spinner";
-import { modalState } from "@/store";
+import { modalState, pageWalletBalance } from "@/store";
 import { fetchWalletBalance } from "@/utils";
 
 export default function Projecct() {
 	const params = useParams();
-
+	const walletBalance = pageWalletBalance((state) => state.walletBalance);
 	const [data, setData] = useState({
 		image: "",
 		title: "",
@@ -23,7 +23,7 @@ export default function Projecct() {
 		amount: "",
 		tx: [],
 	});
-	const [balance, setBalance] = useState("");
+
 	const [isLoading, setIsLoading] = useState(false);
 	const [iBalanceLoading, setIsBalanceIsLoading] = useState(false);
 	useEffect(() => {
@@ -45,7 +45,8 @@ export default function Projecct() {
 				fetchWalletBalance(
 					response.data.address,
 					setIsBalanceIsLoading,
-					setBalance
+
+					true
 				);
 			})
 
@@ -67,7 +68,7 @@ export default function Projecct() {
 							<Spinner isloading={isLoading}></Spinner>
 						</div>
 					) : (
-						<div className="address overflow-x-hidden rounded h-[10px] w-full bg-gray-200">
+						<div className=" overflow-x-hidden rounded h-[10px] w-full bg-gray-200">
 							<div
 								style={{
 									width: `${percentage}%`,
@@ -78,6 +79,7 @@ export default function Projecct() {
 					)}
 					<div className="flex justify-between">
 						<p className="address  text-small text-gray-400">{part || ""}</p>
+
 						<p className="address text-small text-gray-400">{whole || ""}</p>
 					</div>
 				</div>
@@ -95,7 +97,11 @@ export default function Projecct() {
 			) : (
 				<div className="project flex md:flex-row flex-col">
 					<div className="md:w-[60%] w-full md:h-[90vh] h-[50vh] flex mr-5">
-						<img className="object-cover object-top" src={data.image} alt="" />
+						<img
+							className="object-cover w-full object-top"
+							src={data.image}
+							alt=""
+						/>
 					</div>
 					<div className="desc md:w-[40%] w-full flex flex-col pb-5 ">
 						<p className="tit mt-10 text-3xl text-gray-400 font-medium">
@@ -121,7 +127,7 @@ export default function Projecct() {
 							</div>
 						</div>
 						{calculatePercent(
-							Number.parseInt(balance),
+							Number.parseInt(walletBalance),
 							Number.parseInt(data.amount)
 						)}
 						<p className="mt-5 text-small">{data.desc}</p>
