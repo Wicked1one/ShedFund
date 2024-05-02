@@ -42,12 +42,7 @@ export default function Projecct() {
 				console.log(response.data);
 				setIsLoading(false);
 				setData(response.data);
-				fetchWalletBalance(
-					response.data.address,
-					setIsBalanceIsLoading,
-
-					true
-				);
+				fetchWalletBalance(response.data.address, setIsBalanceIsLoading, true);
 			})
 
 			.catch((error) => {

@@ -38,12 +38,7 @@ export default function Nav() {
 	}, [pathname, address]);
 
 	async function getbal() {
-		await fetchWalletBalance(
-			address!,
-			setIsBalanceIsLoading,
-
-			false
-		);
+		await fetchWalletBalance(address!, setIsBalanceIsLoading, false);
 	}
 	// async function connectWallet() {
 	// 	xumm.on("ready", () =>

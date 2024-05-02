@@ -1,5 +1,5 @@
 import { Api } from "@/api/api";
-import { modalState, walletBalance } from "@/store";
+import { modalState, pageWalletBalance, walletBalance } from "@/store";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { IoClose } from "react-icons/io5";
@@ -17,6 +17,7 @@ export default function Fund() {
 		amount: "",
 		address: address,
 		secret: secret,
+		id: modalState((state) => state.id),
 	});
 
 	function fund() {
@@ -30,10 +31,8 @@ export default function Fund() {
 						})
 							.then((res) => {
 								console.log(res);
-
 								modalState.setState({ isModalOpen: false, modalType: "" });
 								toast.success("funded sucessfully");
-
 								setIsLoading(false);
 
 								Api.handlePost(
@@ -42,6 +41,15 @@ export default function Fund() {
 									{ ContentType: "application/x-www-form-urlencoded" }
 								).then((res) => {
 									walletBalance.setState({
+										walletBalance: res.payload.balance[0].value,
+									});
+								});
+								Api.handlePost(
+									"/getBalance",
+									{ address: fundTo },
+									{ ContentType: "application/x-www-form-urlencoded" }
+								).then((res) => {
+									pageWalletBalance.setState({
 										walletBalance: res.payload.balance[0].value,
 									});
 								});
@@ -104,7 +112,7 @@ export default function Fund() {
 									amount in XRP
 								</label>
 								<input
-									className="border text-white w-full bg-gray-600 p-2 rounded placeholder:text-smaller"
+									className="border text-[16px] text-white w-full bg-gray-600 p-2 rounded placeholder:text-smaller"
 									placeholder="how much XRP are you donating"
 									name="rAddress"
 									type="number"

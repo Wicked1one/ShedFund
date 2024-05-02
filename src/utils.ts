@@ -17,13 +17,6 @@ export async function fetchWalletBalance(
 		.then((response) => {
 			setIsBalanceIsLoading(false);
 			console.log(response.payload.balance[0].value);
-			!showToast
-				? walletBalance.setState({
-						walletBalance: response.payload.balance[0].value,
-				  })
-				: pageWalletBalance.setState({
-						walletBalance: response.payload.balance[0].value,
-				  });
 		})
 		.catch((error) => {
 			setIsBalanceIsLoading(false);
