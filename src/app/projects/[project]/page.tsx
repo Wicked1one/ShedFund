@@ -128,7 +128,7 @@ export default function Projecct() {
 						</div>
 						{calculatePercent(
 							Number.parseInt(walletBalance),
-							Number.parseInt(data.amount)
+							Number.parseInt(data.amount.replace(/,/g, ""))
 						)}
 						<p className="mt-5 text-small">{data.desc}</p>
 
