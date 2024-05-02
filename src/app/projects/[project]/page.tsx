@@ -10,6 +10,7 @@ import Nav from "@/components/Nav";
 import { IoCopyOutline } from "react-icons/io5";
 import Spinner from "@/components/Spinner";
 import { modalState } from "@/store";
+import { fetchWalletBalance } from "@/utils";
 
 export default function Projecct() {
 	const params = useParams();
@@ -41,29 +42,15 @@ export default function Projecct() {
 				console.log(response.data);
 				setIsLoading(false);
 				setData(response.data);
-				fetchWalletBalance(response.data.address);
+				fetchWalletBalance(
+					response.data.address,
+					setIsBalanceIsLoading,
+					setBalance
+				);
 			})
 
 			.catch((error) => {
 				setIsLoading(false);
-				console.log(error);
-				toast.error("There was an error fetching projects");
-			});
-	}
-
-	function fetchWalletBalance(address: string) {
-		setIsBalanceIsLoading(true);
-		Api.handlePost(
-			"/getBalance",
-			{ address: address },
-			{ ContentType: "application/x-www-form-urlencoded" }
-		)
-			.then((response) => {
-				setBalance(response.payload.balance[0].value);
-				setIsBalanceIsLoading(false);
-			})
-			.catch((error) => {
-				setIsBalanceIsLoading(false);
 				console.log(error);
 				toast.error("There was an error fetching projects");
 			});

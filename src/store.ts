@@ -30,3 +30,10 @@ export const walletAddress = create<walletAddressState>((set) => ({
 	walletAddress: "",
 	disconnect: false,
 }));
+interface walletBalanceState {
+	walletBalance: string;
+}
+
+export const walletBalance = create<walletBalanceState>((set) => ({
+	walletBalance: "",
+}));
